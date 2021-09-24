@@ -3,7 +3,7 @@
 import unittest
 
 from tests.dog_tests import TestDog
-# from tests.appointment_tests import *
+from tests.appointment_tests import TestAppointment
 
 if __name__ == '__main__':
     unittest.main()
