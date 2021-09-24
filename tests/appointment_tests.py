@@ -1,4 +1,4 @@
-# setting up Tests for appointment class, testing each required object in class
+# setting up Tests for Appointment class, testing each required object in class
 # tests will also need to be created for required methods
 # will then create class, objects and methods to pass each test
 # for MVP, 'time' object will only offer 0800, 1000, 1200, 1400, 1600
@@ -11,8 +11,8 @@ class TestAppointment(unittest.TestCase):
 
     def setUp(self):
         self.appointment= Appointment("0800", "Biscuits")
-        self.acceptable_time = "0800"
-        self.unacceptable_time = "0900"
+        self.time_pass = "0800"
+        self.time_fail = "0900"
 
     def test_appointment_has_time(self):
         self.assertEqual("0800", self.appointment.time)
@@ -20,8 +20,8 @@ class TestAppointment(unittest.TestCase):
     def test_appointment_has_dog(self):
         self.assertEqual("Biscuits", self.appointment.dog)
 
-    def test_time_is_acceptable(self):
-        self.assertEqual(None, Appointment.check_time(self.acceptable_time))
+    def test_check_time_pass(self):
+        self.assertEqual(None, Appointment.check_time(self.time_pass))
 
-    def test_unacceptable_time_returns_error(self):
-        self.assertEqual("This time is unavailable", Appointment.check_time(self.unacceptable_time))
+    def test_check_time_fail(self):
+        self.assertEqual("This time is unavailable", Appointment.check_time(self.time_fail))
