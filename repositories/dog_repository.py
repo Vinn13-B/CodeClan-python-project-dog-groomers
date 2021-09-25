@@ -4,6 +4,7 @@
 from db.run_sql import run_sql
 
 from models.dog import Dog
+from models.appointment import Appointment
 
 
 # SAVE dog entry
@@ -61,4 +62,15 @@ def update(dog):
     run_sql(sql, values)
 
 
-# SELECT ALL apopintments by dog
+# SELECT ALL appointments by dog
+def appointments(dog):
+    appointments = []
+
+    sql = "SELECT * FROM appointments WHERE dog_id = %s"
+    values = [dog.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        appointment = Appointment(row['date'], row['time'], row['dog_id'], row['id'])
+        appointments.append(appointment)
+        return appointments
