@@ -1,7 +1,7 @@
 -- creating sql db for dog groomers with required tables
 
 DROP TABLE IF EXISTS appointments;
-DROP TABLE IF EXISTS dog;
+DROP TABLE IF EXISTS dogs;
 
 CREATE TABLE dogs (
     id SERIAL PRIMARY KEY,
