@@ -10,9 +10,12 @@ from models.appointment import Appointment
 class TestAppointment(unittest.TestCase):
 
     def setUp(self):
-        self.appointment= Appointment("0800", "Biscuits")
+        self.appointment= Appointment("24/09/2021", "0800", "Biscuits")
         self.time_pass = "0800"
         self.time_fail = "0900"
+
+    def test_appointment_has_date(self):
+        self.assertEqual("24/09/2021", self.appointment.date)
 
     def test_appointment_has_time(self):
         self.assertEqual("0800", self.appointment.time)

@@ -3,7 +3,8 @@
 
 class Appointment:
 
-    def __init__(self, time, dog, id = None):
+    def __init__(self, date, time, dog, id = None):
+        self.date = date
         self.time = time
         self.dog = dog
         self.id = id
