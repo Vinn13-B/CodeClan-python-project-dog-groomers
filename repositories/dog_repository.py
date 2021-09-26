@@ -63,11 +63,11 @@ def update(dog):
 
 
 # SELECT ALL appointments by dog
-def appointments(dog):
+def appointments(id):
     appointments = []
 
     sql = "SELECT * FROM appointments WHERE dog_id = %s"
-    values = [dog.id]
+    values = [id]
     results = run_sql(sql, values)
 
     for row in results:

@@ -17,5 +17,5 @@ CREATE TABLE appointments (
     id SERIAL PRIMARY KEY,
     date VARCHAR(255),
     time VARCHAR(255),
-    dog_id INT REFERENCES dogs(id)
+    dog_id INT REFERENCES dogs(id) ON DELETE CASCADE
 );
