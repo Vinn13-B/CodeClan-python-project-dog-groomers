@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Add a New Appointment</h2>
+
+<form action="/appointments" method="POST">
+    <div>
+        <label for="name">Date:</label>
+        <input type="text" id="date" name="date">
+        <label for="name">Time:</label>
+        <input type="text" id="time" name="time">
+        <label for="human">Dog:</label>
+        <select name="dog_id" id="dog_id">
+            {% for dog in dogs %}
+            <option value="{{ dog.id }}">
+                {{ dog.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+
+{% endblock %}

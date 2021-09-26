@@ -60,5 +60,8 @@ appointment_repository.update(appointment1)
 # SELECT appointments by dog
 dog_appointment = dog_repository.appointments(dog1)
 
+# SELECT BY NAME for dog
+dog_name_return = dog_repository.select_by_name(dog1.name, dog1.owner_last_name)
+
 
 pdb.set_trace()

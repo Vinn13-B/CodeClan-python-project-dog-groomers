@@ -9,6 +9,7 @@ import repositories.appointment_repository as appointment_repository
 
 dogs_blueprint = Blueprint("dogs", __name__)
 
+
 # SELECT ALL dogs
 # index
 @dogs_blueprint.route("/dogs")

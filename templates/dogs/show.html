@@ -16,7 +16,7 @@
 <h3>Appointments</h3>
 <ul>{% if appointments != None %}
         {% for appointment in appointments %}
-            <li>{{ appointment.date }} @ {{ appointment.time }}</li>
+            <li><a href="/appointments/{{ appointment.id }}">{{ appointment.date }} @ {{ appointment.time }}</a></li>
         {% endfor %}
     {% else %}
         No Appointments Booked

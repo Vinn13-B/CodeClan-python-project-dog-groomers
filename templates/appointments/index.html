@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Appointments</h2>
+
+{% for appointment in appointments %}
+
+<section>
+    <h3>{{ appointment.date }}</h3>
+    <h4><a href="/appointments/{{ appointment.id }}">{{ appointment.time }}</a></h4>
+    <p>{{ appointment.dog.name }}</p>
+</section>
+
+{% endfor %}
+{% endblock %}

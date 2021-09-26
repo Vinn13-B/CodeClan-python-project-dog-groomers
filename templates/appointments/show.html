@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ appointment.date }}</h2>
+<h2>{{ appointment.time }}</h2>
+<p>Dog: <a href="/dogs/{{ appointment.dog.id }}">{{ appointment.dog.name }}</a></p>
+<p>Breed: {{ appointment.dog.breed }}</p>
+<p>Owner: {{ appointment.dog.owner_last_name }}</p>
+
+<form action="/appointments/{{ appointment.id }}/edit" method="POST">
+    <input type="submit" value="Edit">
+</form>    <form action="/appointments/{{ appointment.id }}/delete" method="POST">
+    <input type="submit" value="Delete">
+</form>
+
+{% endblock %}
