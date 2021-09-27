@@ -5,12 +5,15 @@ from db.run_sql import run_sql
 
 from models.dog import Dog
 from models.appointment import Appointment
+from models.owner import Owner
+
+import repositories.owner_repository as owner_repository
 
 
 # SAVE dog entry
 def save(dog):
-    sql = "INSERT INTO dogs (name, breed, age, owner_first_name, owner_last_name, owner_contact_number) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *"
-    values = [dog.name, dog.breed, dog.age, dog.owner_first_name, dog.owner_last_name, dog.owner_contact_number]
+    sql = "INSERT INTO dogs (name, breed, age, owner_id) VALUES (%s, %s, %s, %s) RETURNING *"
+    values = [dog.name, dog.breed, dog.age, dog.owner.id]
     results = run_sql(sql, values)
     id = results[0]['id']
     dog.id = id
@@ -38,7 +41,8 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        dog = Dog(row['name'], row['breed'], row['age'], row['owner_first_name'], row['owner_last_name'], row['owner_contact_number'], row['id'])
+        owner = owner_repository.select(row['owner_id'])
+        dog = Dog(row['name'], row['breed'], row['age'], owner, row['id'])
         dogs.append(dog)
     return dogs
 
@@ -51,14 +55,15 @@ def select(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        dog = Dog(result['name'], result['breed'], result['age'], result['owner_first_name'], result['owner_last_name'], result['owner_contact_number'], result['id'])
+        owner = owner_repository.select(result['owner_id'])
+        dog = Dog(result['name'], result['breed'], result['age'], owner, result['id'])
     return dog
 
 
 # UPDATE dog
 def update(dog):
-    sql = "UPDATE dogs SET (name, breed, age, owner_first_name, owner_last_name, owner_contact_number) = (%s, %s, %s, %s, %s, %s) WHERE id = %s"
-    values = [dog.name, dog.breed, dog.age, dog.owner_first_name, dog.owner_last_name, dog.owner_contact_number, dog.id]
+    sql = "UPDATE dogs SET (name, breed, age, owner_id) = (%s, %s, %s, %s) WHERE id = %s"
+    values = [dog.name, dog.breed, dog.age, dog.owner.id, dog.id]
     run_sql(sql, values)
 
 

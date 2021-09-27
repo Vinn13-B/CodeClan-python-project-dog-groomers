@@ -8,7 +8,7 @@
 <section>
     <h3><a href="/dogs/{{ dog.id }}">{{ dog.name }}</a></h3>
     <p>{{ dog.breed }}</p>
-    <p>{{ dog.owner_last_name }}</p>
+    <p>{{ dog.owner.name }}</p>
 </section>
 
 {% endfor %}

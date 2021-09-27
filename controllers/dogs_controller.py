@@ -6,6 +6,7 @@ from models.dog import Dog
 from models.appointment import Appointment
 import repositories.dog_repository as dog_repository
 import repositories.appointment_repository as appointment_repository
+import repositories.owner_repository as owner_repository
 
 dogs_blueprint = Blueprint("dogs", __name__)
 
@@ -32,7 +33,8 @@ def show_dog(id):
 @dogs_blueprint.route("/dogs/<id>/edit", methods=["POST"])
 def edit_dog(id):
     dog = dog_repository.select(id)
-    return render_template("dogs/edit.html", dog=dog)
+    owners = owner_repository.select_all()
+    return render_template("dogs/edit.html", dog=dog, owners=owners)
 
 
 # UPDATE dog
@@ -41,10 +43,9 @@ def update_dog(id):
     name = request.form["name"]
     breed = request.form["breed"]
     age = request.form["age"]
-    owner_first_name = request.form["owner_first_name"]
-    owner_last_name = request.form["owner_last_name"]
-    owner_contact_number = request.form["owner_contact_number"]
-    dog = Dog(name, breed, age, owner_first_name, owner_last_name, owner_contact_number, id)
+    owner_id = request.form["owner_id"]
+    owner = owner_repository.select(owner_id)
+    dog = Dog(name, breed, age, owner, id)
     dog_repository.update(dog)
     return redirect("/dogs")
 
@@ -60,7 +61,8 @@ def delete_dog(id):
 # new
 @dogs_blueprint.route("/dogs/new")
 def new_dog():
-    return render_template("/dogs/new.html")
+    owners = owner_repository.select_all()
+    return render_template("/dogs/new.html", owners=owners)
 
 
 # SAVE new dog
@@ -69,9 +71,8 @@ def create_dog():
     name = request.form["name"]
     breed = request.form["breed"]
     age = request.form["age"]
-    owner_first_name = request.form["owner_first_name"]
-    owner_last_name = request.form["owner_last_name"]
-    owner_contact_number = request.form["owner_contact_number"]
-    new_dog = Dog(name, breed, age, owner_first_name, owner_last_name, owner_contact_number)
+    owner_id = request.form["owner_id"]
+    owner = owner_repository.select(owner_id)
+    new_dog = Dog(name, breed, age, owner, id)
     dog_repository.save(new_dog)
     return redirect("/dogs")

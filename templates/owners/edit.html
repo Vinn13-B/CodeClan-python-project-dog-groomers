@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Update an Owner</h2>
+
+<form action="/owners/{{ owner.id }}" method="POST">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ owner.name }}">
+        <label for="name">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number" value="{{ owner.contact_number }}">
+</div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+
+{% endblock %}

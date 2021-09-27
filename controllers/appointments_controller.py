@@ -8,7 +8,7 @@ from models.groomer import Groomer
 
 import repositories.appointment_repository as appointment_repository
 import repositories.dog_repository as dog_repository
-import repositories.groomer_repositories as groomer_repository
+import repositories.groomer_repository as groomer_repository
 
 appointments_blueprint = Blueprint("appointments", __name__)
 
