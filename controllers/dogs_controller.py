@@ -25,7 +25,8 @@ def dogs():
 def show_dog(id):
     dog = dog_repository.select(id)
     appointments = dog_repository.appointments(id)
-    return render_template("dogs/show.html", dog=dog, appointments=appointments)
+    walks = dog_repository.walks(id)
+    return render_template("dogs/show.html", dog=dog, appointments=appointments, walks=walks)
 
 
 # EDIT dog

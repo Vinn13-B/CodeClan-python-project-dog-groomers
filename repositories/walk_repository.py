@@ -2,6 +2,7 @@
 # manners of create, read, update, delete functions to be added
 
 from db.run_sql import run_sql
+import datetime
 
 from models.dog import Dog
 from models.owner import Owner
@@ -57,7 +58,7 @@ def select(id):
 
     if result is not None:
         dog = dog_repository.select(result['dog_id'])
-        walk = Walk(result['date'], result['time'], result['capacity'], dog)
+        walk = Walk(result['date'], result['time'], result['capacity'], dog, result['id'])
     return walk
 
 
@@ -79,4 +80,34 @@ def dogs(id):
     for row in results:
         dog = Dog(row['name'], row['breed'], row['age'], row['owner_id'], row['comments'], row['id'])
         dogs.append(dog)
-        return dogs
+    return dogs
+    
+# SELECT walks today
+def today():
+    walks = []
+    today = datetime.datetime.now()
+    now = today.strftime("%d/%m/%Y")
+
+    sql = "SELECT * FROM walks WHERE date = %s"
+    values = [now]
+    results = run_sql(sql, values)
+
+    for row in results:
+        dog = dog_repository.select(row['dog_id'])
+        walk = Walk(row['date'], row['time'], row['capacity'], dog, row['id'])
+        walks.append(walk)
+    return walks
+
+
+# SELECT walks for date range
+def date_range(date_from, date_to):
+    walks = []
+    sql = "SELECT * FROM walks WHERE date >= %s and date <= %s"
+    values = [date_from, date_to]
+    results = run_sql(sql, values)
+
+    for row in results:
+        dog = dog_repository.select(row['dog_id'])
+        walk = Walk(row['date'], row['time'], row['capacity'], dog, row['id'])
+        walks.append(walk)
+    return walks

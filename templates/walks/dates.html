@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Walks</h2>
+
+{% if walks != None %}
+    {% for walk in walks %}
+
+    <section>
+        <h4><a href="/walks/{{ walk.id }}">{{ walk.time }}</a></h4>
+    </section>
+
+    {% endfor %}
+{% else %}
+    No Walks
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Add a New Walk</h2>
+
+<form action="/walks" method="POST">
+    <div>
+        <label for="name">Date:</label>
+        <input type="text" id="date" name="date">
+        <label for="name">Time:</label>
+        <input type="text" id="time" name="time">
+        <label for="name">Capacity:</label>
+        <input type="number" id="capacity" name="capacity">
+        <label for="dog">Dog:</label>
+        <select name="dog_id" id="dog_id">
+            {% for dog in dogs %}
+            <option value="{{ dog.id }}">
+                {{ dog.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+
+{% endblock %}

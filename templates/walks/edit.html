@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Update a Walk</h2>
+
+<form action="/walks/{{ walk.id }}" method="POST">
+    <div>
+        <label for="name">Date:</label>
+        <input type="text" id="date" name="date" value="{{ walk.date }}">
+        <label for="name">Time:</label>
+        <input type="text" id="time" name="time" value="{{ walk.time }}">
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" value="{{ walk.capacity }}">
+        <label for="dog">Dog:</label>
+        <select name="dog_id" id="dog">
+            {% for dog in dogs %}
+            <option value="{{ dog.id }}" {% if dog.id == walk.dog.id %} selected {% endif %}>
+                {{ dog.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+
+{% endblock %}
