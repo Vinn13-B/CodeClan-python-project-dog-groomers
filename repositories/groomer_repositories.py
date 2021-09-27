@@ -10,8 +10,8 @@ from models.groomer import Groomer
 
 # SAVE groomer entry
 def save(groomer):
-    sql = "INSERT INTO groomers (name) VALUES (%s) RETURNING *"
-    values = [groomer.name]
+    sql = "INSERT INTO groomers (name, contact_number) VALUES (%s, %s) RETURNING *"
+    values = [groomer.name, groomer.contact_number]
     results = run_sql(sql, values)
     id = results[0]['id']
     groomer.id = id
@@ -39,7 +39,7 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        groomer = Groomer(row['name'], row['id'])
+        groomer = Groomer(row['name'], row['contact_number'], row['id'])
         groomers.append(groomer)
     return groomers
 
@@ -52,14 +52,14 @@ def select(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        groomer = Groomer(result['name'], result['id'])
+        groomer = Groomer(result['name'], result['contact_number'], result['id'])
     return groomer
 
 
 # UPDATE groomer
 def update(groomer):
-    sql = "UPDATE groomers SET name = %s WHERE id = %s"
-    values = [groomer.name, groomer.id]
+    sql = "UPDATE groomers SET (name, contact_number) = (%s, %s) WHERE id = %s"
+    values = [groomer.name, groomer.contact_number, groomer.id]
     run_sql(sql, values)
 
 

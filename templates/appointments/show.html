@@ -3,6 +3,7 @@
 
 <h2>{{ appointment.date }}</h2>
 <h2>{{ appointment.time }}</h2>
+<p>Groomer: {{ appointment.groomer.name }}</p>
 <p>Dog: <a href="/dogs/{{ appointment.dog.id }}">{{ appointment.dog.name }}</a></p>
 <p>Breed: {{ appointment.dog.breed }}</p>
 <p>Owner: {{ appointment.dog.owner_last_name }}</p>

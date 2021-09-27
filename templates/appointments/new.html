@@ -9,11 +9,19 @@
         <input type="text" id="date" name="date">
         <label for="name">Time:</label>
         <input type="text" id="time" name="time">
-        <label for="human">Dog:</label>
+        <label for="dog">Dog:</label>
         <select name="dog_id" id="dog_id">
             {% for dog in dogs %}
             <option value="{{ dog.id }}">
                 {{ dog.name }}
+            </option>
+            {% endfor %}
+        </select>
+        <label for="groomer">Groomer:</label>
+        <select name="groomer_id" id="groomer_id">
+            {% for groomer in groomers %}
+            <option value="{{ groomer.id }}">
+                {{ groomer.name }}
             </option>
             {% endfor %}
         </select>

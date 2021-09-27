@@ -4,8 +4,11 @@ from flask import Blueprint, Flask, redirect, render_template, request
 
 from models.appointment import Appointment
 from models.dog import Dog
+from models.groomer import Groomer
+
 import repositories.appointment_repository as appointment_repository
 import repositories.dog_repository as dog_repository
+import repositories.groomer_repositories as groomer_repository
 
 appointments_blueprint = Blueprint("appointments", __name__)
 
@@ -26,28 +29,31 @@ def show_appointment(id):
     return render_template("appointments/show.html", appointment=appointment)
 
 
-# EDIT dog
+# EDIT appointment
 # edit
 @appointments_blueprint.route("/appointments/<id>/edit", methods=["POST"])
 def edit_appointment(id):
     appointment = appointment_repository.select(id)
     dogs = dog_repository.select_all()
-    return render_template("appointments/edit.html", appointment=appointment, dogs=dogs)
+    groomers = groomer_repository.select_all()
+    return render_template("appointments/edit.html", appointment=appointment, dogs=dogs, groomers=groomers)
 
 
-# UPDATE dog
+# UPDATE appointment
 @appointments_blueprint.route("/appointments/<id>", methods=["POST"])
 def update_appointment(id):
     date = request.form["date"]
     time = request.form["time"]
     dog_id = request.form["dog_id"]
     dog = dog_repository.select(dog_id)
-    appointment = Appointment(date, time, dog, id)
+    groomer_id = request.form["groomer_id"]
+    groomer = groomer_repository.select(groomer_id)
+    appointment = Appointment(date, time, dog, groomer, id)
     appointment_repository.update(appointment)
     return redirect("/appointments")
 
 
-# DELETE dog
+# DELETE appointment
 @appointments_blueprint.route("/appointments/<id>/delete", methods=["POST"])
 def delete_appointment(id):
     appointment_repository.delete(id)
@@ -59,7 +65,8 @@ def delete_appointment(id):
 @appointments_blueprint.route("/appointments/new")
 def new_appointment():
     dogs = dog_repository.select_all()
-    return render_template("/appointments/new.html", dogs=dogs)
+    groomers = groomer_repository.select_all()
+    return render_template("/appointments/new.html", dogs=dogs, groomers=groomers)
 
 
 # SAVE new appointment
@@ -69,6 +76,8 @@ def create_appointment():
     time = request.form["time"]
     dog_id = request.form["dog_id"]
     dog = dog_repository.select(dog_id)
-    new_appointment = Appointment(date, time, dog)
+    groomer_id = request.form["groomer_id"]
+    groomer = groomer_repository.select(groomer_id)
+    new_appointment = Appointment(date, time, dog, groomer)
     appointment_repository.save(new_appointment)
     return redirect("/appointments")

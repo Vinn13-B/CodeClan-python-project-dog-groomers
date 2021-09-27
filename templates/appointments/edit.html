@@ -17,6 +17,14 @@
             </option>
             {% endfor %}
         </select>
+        <label for="groomer">Groomer:</label>
+        <select name="groomer_id" id="groomer_id">
+            {% for groomer in groomers %}
+            <option value="{{ groomer.id }}">
+                {{ groomer.name }}
+            </option>
+            {% endfor %}
+        </select>
     </div>
     <div>
         <input type="submit">

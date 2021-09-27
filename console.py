@@ -29,9 +29,9 @@ dog_repository.save(dog2)
 dog_repository.save(dog3)
 
 # SAVE entries to groomers
-groomer1 = Groomer("Ailie")
-groomer2 = Groomer("Victoria")
-groomer3 = Groomer("Sarah")
+groomer1 = Groomer("Ailie", "07930444444")
+groomer2 = Groomer("Victoria", "07930555555")
+groomer3 = Groomer("Sarah", "07930666666")
 groomer_repository.save(groomer1)
 groomer_repository.save(groomer2)
 groomer_repository.save(groomer3)

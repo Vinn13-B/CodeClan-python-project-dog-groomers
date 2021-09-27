@@ -16,7 +16,8 @@ CREATE TABLE dogs (
 
 CREATE TABLE groomers (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255),
+    contact_number VARCHAR(255)
 );
 
 CREATE TABLE appointments (

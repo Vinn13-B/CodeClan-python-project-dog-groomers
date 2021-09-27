@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Groomers</h2>
+
+{% for groomer in groomers %}
+
+<section>
+    <h3><a href="/groomers/{{ groomer.id }}">{{ groomer.name }}</a></h3>
+</section>
+
+{% endfor %}
+{% endblock %}
