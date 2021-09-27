@@ -6,11 +6,12 @@
 <p>Groomer: {{ appointment.groomer.name }}</p>
 <p>Dog: <a href="/dogs/{{ appointment.dog.id }}">{{ appointment.dog.name }}</a></p>
 <p>Breed: {{ appointment.dog.breed }}</p>
-<p>Owner: {{ appointment.dog.owner_last_name }}</p>
+<p>Owner: {{ appointment.dog.owner.name }}</p>
 
 <form action="/appointments/{{ appointment.id }}/edit" method="POST">
     <input type="submit" value="Edit">
-</form>    <form action="/appointments/{{ appointment.id }}/delete" method="POST">
+</form>
+<form action="/appointments/{{ appointment.id }}/delete" method="POST">
     <input type="submit" value="Delete">
 </form>
 

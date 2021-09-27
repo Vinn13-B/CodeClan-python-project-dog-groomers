@@ -81,3 +81,21 @@ def create_appointment():
     new_appointment = Appointment(date, time, dog, groomer)
     appointment_repository.save(new_appointment)
     return redirect("/appointments")
+
+
+# SELECT appointment by date
+@appointments_blueprint.route("/appointments/today")
+def appointment_date():
+    appointments = appointment_repository.today()
+    dogs = dog_repository.select_all()
+    return render_template("/appointments/today.html", appointments=appointments, dogs=dogs)
+
+
+# SELECT appointment by date range
+@appointments_blueprint.route("/appointments/dates", methods=["POST"])
+def appointment_date_range():
+    date_from = request.form["date_from"]
+    date_to = request.form["date_to"]
+    appointments = appointment_repository.date_range(date_from, date_to)
+    dogs = dog_repository.select_all()
+    return render_template("/appointments/dates.html", appointments=appointments, dogs=dogs)

@@ -28,7 +28,7 @@ def show_groomer(id):
     groomer = groomer_repository.select(id)
     appointments = groomer_repository.appointments(id)
     dogs = dog_repository.select_all()
-    return render_template("groomers/show.html", groomer=groomer, appointments=appointments, dogs = dogs)
+    return render_template("groomers/show.html", groomer=groomer, appointments=appointments, dogs=dogs)
 
 
 # EDIT groomer

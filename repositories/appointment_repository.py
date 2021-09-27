@@ -2,6 +2,7 @@
 # manners of create, read, update, delete functions to be added
 
 from db.run_sql import run_sql
+import datetime
 
 from models.dog import Dog
 from models.groomer import Groomer
@@ -68,3 +69,36 @@ def update(appointment):
     sql = "UPDATE appointments SET (date, time, dog_id, groomer_id) = (%s, %s, %s, %s) WHERE id = %s"
     values = [appointment.date, appointment.time, appointment.dog.id, appointment.groomer.id, appointment.id]
     run_sql(sql, values)
+
+
+# SELECT appointments today
+def today():
+    appointments = []
+    today = datetime.datetime.now()
+    now = today.strftime("%d/%m/%Y")
+
+    sql = "SELECT * FROM appointments WHERE date = %s"
+    values = [now]
+    results = run_sql(sql, values)
+
+    for row in results:
+        dog = dog_repository.select(row['dog_id'])
+        groomer = groomer_repository.select(row['groomer_id'])
+        appointment = Appointment(row['date'], row['time'], dog, groomer, row['id'])
+        appointments.append(appointment)
+    return appointments
+
+
+# SELECT appointments for date range
+def date_range(date_from, date_to):
+    appointments = []
+    sql = "SELECT * FROM appointments WHERE date >= %s and date <= %s"
+    values = [date_from, date_to]
+    results = run_sql(sql, values)
+
+    for row in results:
+        dog = dog_repository.select(row['dog_id'])
+        groomer = groomer_repository.select(row['groomer_id'])
+        appointment = Appointment(row['date'], row['time'], dog, groomer, row['id'])
+        appointments.append(appointment)
+    return appointments

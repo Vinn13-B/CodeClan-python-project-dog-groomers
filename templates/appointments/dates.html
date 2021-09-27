@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Appointments</h2>
+
+{% if appointments != None %}
+    {% for appointment in appointments %}
+
+    <section>
+        <h4><a href="/appointments/{{ appointment.id }}">{{ appointment.time }}</a></h4>
+        {{ appointment.dog.name }}
+    </section>
+
+    {% endfor %}
+{% else %}
+    No Appointments
+{% endif %}
+{% endblock %}
