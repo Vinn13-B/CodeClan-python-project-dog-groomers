@@ -28,7 +28,7 @@ def owners():
 @owners_blueprint.route("/owners/<id>")
 def show_owner(id):
     owner = owner_repository.select(id)
-    dogs = dog_repository.select_all()
+    dogs = owner_repository.dogs(id)
     return render_template("owners/show.html", owner=owner, dogs = dogs)
 
 

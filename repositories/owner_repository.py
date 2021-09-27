@@ -67,7 +67,7 @@ def update(owner):
 def dogs(id):
     dogs = []
 
-    sql = "SELECT * FROM dogs WHERE dog_id = %s"
+    sql = "SELECT * FROM dogs WHERE owner_id = %s"
     values = [id]
     results = run_sql(sql, values)
 
