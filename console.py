@@ -6,11 +6,13 @@ from models.dog import Dog
 from models.appointment import Appointment
 from models.groomer import Groomer
 from models.owner import Owner
+from models.walk import Walk
 
 import repositories.dog_repository as dog_repository
 import repositories.appointment_repository as appointment_repository
 import repositories.groomer_repository as groomer_repository
 import repositories.owner_repository as owner_repository
+import repositories.walk_repository as walk_repository
 
 
 # DELETE ALL in owners
@@ -24,6 +26,9 @@ groomer_repository.delete_all()
 
 # DELETE ALL in appointments
 appointment_repository.delete_all()
+
+# DELETE ALL in walks
+walk_repository.delete_all()
 
 # SAVE entries to owners
 owner1 = Owner("Ailie Brown", "07933333333")
@@ -57,6 +62,12 @@ appointment_repository.save(appointment1)
 appointment_repository.save(appointment2)
 appointment_repository.save(appointment3)
 
+# SAVE entries to walks
+walk1 = Walk("01/10/2021", "0900", 6, dog1)
+walk2 = Walk("02/10/2021", "0900", 6, dog1)
+walk_repository.save(walk1)
+walk_repository.save(walk2)
+
 # DELETE single owner entry
 owner_repository.delete(owner3.id)
 
@@ -68,6 +79,9 @@ appointment_repository.delete(appointment3.id)
 
 # DELETE single groomer entry
 groomer_repository.delete(groomer3.id)
+
+# DELETE single walk entry
+walk_repository.delete(walk2.id)
 
 # SELECT ALL in owners
 found_owners = owner_repository.select_all()
@@ -81,6 +95,9 @@ found_appointments = appointment_repository.select_all()
 # SELECT ALL in groomers
 found_groomers = groomer_repository.select_all()
 
+# SELECT ALL in walks
+found_walks = walk_repository.select_all()
+
 # SELECT owner by id
 found_owner = owner_repository.select(owner1.id)
 
@@ -92,6 +109,9 @@ found_appointment = appointment_repository.select(appointment1.id)
 
 # SELECT groomer by id
 found_groomer = groomer_repository.select(groomer1.id)
+
+# SELECT walk by id
+found_walk = walk_repository.select(walk1.id)
 
 # UPDATE owner
 owner2.name = "Vincent Bennis"
@@ -109,6 +129,10 @@ appointment_repository.update(appointment1)
 groomer2.name = "Jade"
 groomer_repository.update(groomer2)
 
+# UPDATE walk
+walk1.time = "0930"
+walk_repository.update(walk1)
+
 # SELECT dogs by owner
 owner_dogs = owner_repository.dogs(owner1.id)
 
@@ -117,6 +141,9 @@ dog_appointments = dog_repository.appointments(dog1.id)
 
 # SELECT appointments by groomer
 groomer_appointments = groomer_repository.appointments(groomer1.id)
+
+# SELECT dogs by walk
+dog_walks = walk_repository.dogs(walk1.id)
 
 
 pdb.set_trace()
