@@ -3,10 +3,11 @@
 
 class Appointment:
 
-    def __init__(self, date, time, dog, id = None):
+    def __init__(self, date, time, dog, groomer, id = None):
         self.date = date
         self.time = time
         self.dog = dog
+        self.groomer = groomer
         self.id = id
 
     def check_time(time):

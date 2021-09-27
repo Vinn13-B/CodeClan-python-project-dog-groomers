@@ -4,6 +4,7 @@ import unittest
 
 from tests.dog_tests import TestDog
 from tests.appointment_tests import TestAppointment
+from tests.groomer_tests import TestGroomer
 
 if __name__ == '__main__':
     unittest.main()

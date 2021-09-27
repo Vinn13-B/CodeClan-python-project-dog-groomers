@@ -4,14 +4,17 @@
 from db.run_sql import run_sql
 
 from models.dog import Dog
+from models.groomer import Groomer
 from models.appointment import Appointment
+
 import repositories.dog_repository as dog_repository
+import repositories.groomer_repositories as groomer_repository
 
 
 # SAVE appointment entry
 def save(appointment):
-    sql = "INSERT INTO appointments (date, time, dog_id) VALUES (%s, %s, %s) RETURNING *"
-    values = [appointment.date, appointment.time, appointment.dog.id]
+    sql = "INSERT INTO appointments (date, time, dog_id, groomer_id) VALUES (%s, %s, %s, %s) RETURNING *"
+    values = [appointment.date, appointment.time, appointment.dog.id, appointment.groomer.id]
     results = run_sql(sql, values)
     id = results[0]['id']
     appointment.id = id
@@ -40,7 +43,8 @@ def select_all():
 
     for row in results:
         dog = dog_repository.select(row['dog_id'])
-        appointment = Appointment(row['date'], row['time'], dog, row['id'])
+        groomer = groomer_repository.select(row['groomer_id'])
+        appointment = Appointment(row['date'], row['time'], dog, groomer, row['id'])
         appointments.append(appointment)
     return appointments
 
@@ -54,12 +58,13 @@ def select(id):
 
     if result is not None:
         dog = dog_repository.select(result['dog_id'])
-        appointment = Appointment(result['date'], result['time'], dog, result['id'])
+        groomer = groomer_repository.select(result['groomer_id'])
+        appointment = Appointment(result['date'], result['time'], dog, groomer, result['id'])
     return appointment
 
 
 # UPDATE appointment
 def update(appointment):
-    sql = "UPDATE appointments SET (date, time, dog_id) = (%s, %s, %s) WHERE id = %s"
-    values = [appointment.date, appointment.time, appointment.dog.id, appointment.id]
+    sql = "UPDATE appointments SET (date, time, dog_id, groomer_id) = (%s, %s, %s, %s) WHERE id = %s"
+    values = [appointment.date, appointment.time, appointment.dog.id, appointment.groomer.id, appointment.id]
     run_sql(sql, values)

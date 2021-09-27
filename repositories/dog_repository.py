@@ -71,6 +71,6 @@ def appointments(id):
     results = run_sql(sql, values)
 
     for row in results:
-        appointment = Appointment(row['date'], row['time'], row['dog_id'], row['id'])
+        appointment = Appointment(row['date'], row['time'], row['dog_id'], row['groomer_id'], row['id'])
         appointments.append(appointment)
         return appointments

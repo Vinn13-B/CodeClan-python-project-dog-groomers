@@ -4,13 +4,18 @@ import pdb
 
 from models.dog import Dog
 from models.appointment import Appointment
+from models.groomer import Groomer
 
 import repositories.dog_repository as dog_repository
 import repositories.appointment_repository as appointment_repository
+import repositories.groomer_repositories as groomer_repository
 
 
 # DELETE ALL in dogs
 dog_repository.delete_all()
+
+# DELETE ALL in groomers
+groomer_repository.delete_all()
 
 # DELETE ALL in appointments
 appointment_repository.delete_all()
@@ -23,10 +28,18 @@ dog_repository.save(dog1)
 dog_repository.save(dog2)
 dog_repository.save(dog3)
 
+# SAVE entries to groomers
+groomer1 = Groomer("Ailie")
+groomer2 = Groomer("Victoria")
+groomer3 = Groomer("Sarah")
+groomer_repository.save(groomer1)
+groomer_repository.save(groomer2)
+groomer_repository.save(groomer3)
+
 # SAVE entries to appointments
-appointment1 = Appointment("24/09/2021", "0800", dog1)
-appointment2 = Appointment("24/09/2021", "1000", dog2)
-appointment3 = Appointment("24/09/2021", "1200", dog3)
+appointment1 = Appointment("24/09/2021", "0800", dog1, groomer1)
+appointment2 = Appointment("24/09/2021", "1000", dog2, groomer1)
+appointment3 = Appointment("24/09/2021", "1200", dog3, groomer2)
 appointment_repository.save(appointment1)
 appointment_repository.save(appointment2)
 appointment_repository.save(appointment3)
@@ -37,17 +50,26 @@ dog_repository.delete(dog3.id)
 # DELETE single appointment entry
 appointment_repository.delete(appointment3.id)
 
+# DELETE single groomer entry
+groomer_repository.delete(groomer3.id)
+
 # SELECT ALL in dogs
 found_dogs = dog_repository.select_all()
 
 # SELECT ALL in appointments
 found_appointments = appointment_repository.select_all()
 
+# SELECT ALL in groomers
+found_groomers = groomer_repository.select_all()
+
 # SELECT dog by id
 found_dog = dog_repository.select(dog1.id)
 
 # SELECT appointment by id
 found_appointment = appointment_repository.select(appointment1.id)
+
+# SELECT groomer by id
+found_groomer = groomer_repository.select(groomer1.id)
 
 # UPDATE dog
 dog1.name = "Daisy"
@@ -57,11 +79,15 @@ dog_repository.update(dog1)
 appointment1.date = "25/09/2021"
 appointment_repository.update(appointment1)
 
-# SELECT appointments by dog
-dog_appointment = dog_repository.appointments(dog1)
+# UPDATE groomer
+groomer2.name = "Jade"
+groomer_repository.update(groomer2)
 
-# SELECT BY NAME for dog
-dog_name_return = dog_repository.select_by_name(dog1.name, dog1.owner_last_name)
+# SELECT appointments by dog
+dog_appointment = dog_repository.appointments(dog1.id)
+
+# SELECT appointments by groomer
+groomer_appointment = groomer_repository.appointments(groomer1.id)
 
 
 pdb.set_trace()
