@@ -45,7 +45,8 @@ def update_dog(id):
     age = request.form["age"]
     owner_id = request.form["owner_id"]
     owner = owner_repository.select(owner_id)
-    dog = Dog(name, breed, age, owner, id)
+    comments = request.form['comments']
+    dog = Dog(name, breed, age, owner, comments, id)
     dog_repository.update(dog)
     return redirect("/dogs")
 
@@ -73,6 +74,7 @@ def create_dog():
     age = request.form["age"]
     owner_id = request.form["owner_id"]
     owner = owner_repository.select(owner_id)
-    new_dog = Dog(name, breed, age, owner, id)
+    comments = request.form['comments']
+    new_dog = Dog(name, breed, age, owner, comments, id)
     dog_repository.save(new_dog)
     return redirect("/dogs")

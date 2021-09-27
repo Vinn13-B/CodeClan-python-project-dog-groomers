@@ -34,9 +34,9 @@ owner_repository.save(owner2)
 owner_repository.save(owner3)
 
 # SAVE entries to dogs
-dog1 = Dog("Biscuits", "Norfolk Terrier", 8, owner1)
-dog2 = Dog("Elvis", "Labrador", 9, owner2)
-dog3 = Dog("Boo", "Cocker Spaniel", 10, owner3)
+dog1 = Dog("Biscuits", "Norfolk Terrier", 8, owner1, "Best girl")
+dog2 = Dog("Elvis", "Labrador", 9, owner2, "Best boy")
+dog3 = Dog("Boo", "Cocker Spaniel", 10, owner3, "Hyper AF")
 dog_repository.save(dog1)
 dog_repository.save(dog2)
 dog_repository.save(dog3)

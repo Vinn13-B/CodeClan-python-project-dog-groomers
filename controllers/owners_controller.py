@@ -29,7 +29,7 @@ def owners():
 def show_owner(id):
     owner = owner_repository.select(id)
     dogs = owner_repository.dogs(id)
-    return render_template("owners/show.html", owner=owner, dogs = dogs)
+    return render_template("owners/show.html", owner=owner, dogs=dogs)
 
 
 # EDIT owner

@@ -72,6 +72,6 @@ def dogs(id):
     results = run_sql(sql, values)
 
     for row in results:
-        dog = Dog(row['name'], row['breed'], row['age'], row['owner_id'], row['id'])
+        dog = Dog(row['name'], row['breed'], row['age'], row['owner_id'], row['comments'], row['id'])
         dogs.append(dog)
-        return dogs
+    return dogs
