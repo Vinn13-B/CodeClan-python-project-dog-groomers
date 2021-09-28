@@ -25,9 +25,3 @@ class TestAppointment(unittest.TestCase):
 
     def test_appointment_has_groomer(self):
         self.assertEqual("Ailie", self.appointment.groomer)
-
-    def test_check_time_pass(self):
-        self.assertEqual(None, Appointment.check_time(self.time_pass))
-
-    def test_check_time_fail(self):
-        self.assertEqual("This time is unavailable", Appointment.check_time(self.time_fail))

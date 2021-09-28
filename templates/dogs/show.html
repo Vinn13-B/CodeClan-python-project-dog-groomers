@@ -15,22 +15,11 @@
     <input type="submit" value="Delete">
 </form>
 <li><a href="/appointments/new">Book Appointment</a></li>
-<li><a href="/walks/new">Book Walk</a></li>
 
 <h3>Appointments</h3>
 <ul>{% if appointments != None %}
         {% for appointment in appointments %}
             <li><a href="/appointments/{{ appointment.id }}">{{ appointment.date }} @ {{ appointment.time }}</a></li>
-        {% endfor %}
-    {% else %}
-        No Appointments Booked
-    {% endif %}
-</ul>
-
-<h3>Walks</h3>
-<ul>{% if walks != None %}
-        {% for walk in walks %}
-            <li><a href="/walks/{{ walk.id }}">{{ walk.date }} @ {{ walk.time }}</a></li>
         {% endfor %}
     {% else %}
         No Appointments Booked

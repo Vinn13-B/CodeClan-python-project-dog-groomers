@@ -4,7 +4,7 @@ from controllers.dogs_controller import dogs_blueprint
 from controllers.appointments_controller import appointments_blueprint
 from controllers.groomers_controller import groomers_blueprint
 from controllers.owners_controller import owners_blueprint
-from controllers.walks_controller import walks_blueprint
+
 
 app = Flask(__name__)
 
@@ -12,7 +12,6 @@ app.register_blueprint(dogs_blueprint)
 app.register_blueprint(appointments_blueprint)
 app.register_blueprint(groomers_blueprint)
 app.register_blueprint(owners_blueprint)
-app.register_blueprint(walks_blueprint)
 
 
 @app.route("/")

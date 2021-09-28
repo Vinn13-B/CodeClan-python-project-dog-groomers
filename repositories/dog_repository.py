@@ -5,11 +5,9 @@ from db.run_sql import run_sql
 
 from models.dog import Dog
 from models.appointment import Appointment
-from models.owner import Owner
-from models.walk import Walk
+
 
 import repositories.owner_repository as owner_repository
-import repositories.walk_repository  as walk_repository
 
 
 # SAVE dog entry
@@ -81,17 +79,3 @@ def appointments(id):
         appointment = Appointment(row['date'], row['time'], row['dog_id'], row['groomer_id'], row['id'])
         appointments.append(appointment)
         return appointments
-
-
-# SELECT ALL walks by dog
-def walks(id):
-    walks = []
-
-    sql = "SELECT * FROM walks WHERE dog_id = %s"
-    values = [id]
-    results = run_sql(sql, values)
-
-    for row in results:
-        walk = Walk(row['date'], row['time'], row['capacity'], row['dog_id'], row['id'])
-        walks.append(walk)
-        return walks

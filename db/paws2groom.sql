@@ -1,6 +1,5 @@
 -- creating sql db for dog groomer business with required tables
 
-DROP TABLE IF EXISTS walks;
 DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS groomers;
 DROP TABLE IF EXISTS dogs;
@@ -33,13 +32,4 @@ CREATE TABLE appointments (
     time VARCHAR(255),
     dog_id INT REFERENCES dogs(id) ON DELETE CASCADE,
     groomer_id INT REFERENCES groomers(id)
-);
-
-CREATE TABLE walks (
-    id SERIAL PRIMARY KEY,
-    date VARCHAR(255),
-    time VARCHAR(255),
-    capacity int,
-    head_count int,
-    dog_id INT REFERENCES dogs(id) ON DELETE CASCADE
 );

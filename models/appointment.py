@@ -9,10 +9,3 @@ class Appointment:
         self.dog = dog
         self.groomer = groomer
         self.id = id
-
-    def check_time(time):
-        acceptable_times = ["0800", "1000", "1200", "1400", "1600"]
-        if time in acceptable_times:
-            pass
-        else:
-            return "This time is unavailable"
