@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Update a Groomer</h2>
-
-<form action="/groomers/{{ groomer.id }}" method="POST">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ groomer.name }}">
-        <label for="name">Contact Number:</label>
-        <input type="text" id="contact_number" name="contact_number" value="{{ groomer.contact_number }}">
-</div>
-    <div>
-        <input type="submit">
+<section id="container_2">
+    <div id="groomers_index">
+        <h3>Update Groomer</h3>
+        {% for groomer in groomers %}
+        <h2><a href="/groomers/{{ groomer.id }}">{{ groomer.name }}</a></h3>
+            {% endfor %}
+            <form action="/groomers/{{ groomer.id }}" method="POST">
+                <label for="name"><b>Name</b></label>
+                <input type="text" id="name" name="name" value="{{ groomer.name }}">
+                <p></p>
+                <label for="name"><b>Contact Number</b></label>
+                <input type="text" id="contact_number" name="contact_number" value="{{ groomer.contact_number }}">
+                <br>
+                <br>
+                <input id="button" type="submit">
     </div>
-</form>
+    </form>
+</section>
 
 {% endblock %}

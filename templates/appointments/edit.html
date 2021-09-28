@@ -1,34 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Update an Appointment</h2>
-
-<form action="/appointments/{{ appointment.id }}" method="POST">
-    <div>
-        <label for="name">Date:</label>
-        <input type="text" id="date" name="date" value="{{ appointment.date }}">
-        <label for="name">Time:</label>
-        <input type="text" id="time" name="time" value="{{ appointment.time }}">
-        <label for="dog">Dog:</label>
-        <select name="dog_id" id="dog">
-            {% for dog in dogs %}
-            <option value="{{ dog.id }}" {% if dog.id == appointment.dog.id %} selected {% endif %}>
-                {{ dog.name }}
-            </option>
-            {% endfor %}
-        </select>
-        <label for="groomer">Groomer:</label>
-        <select name="groomer_id" id="groomer_id">
-            {% for groomer in groomers %}
-            <option value="{{ groomer.id }}">
-                {{ groomer.name }}
-            </option>
-            {% endfor %}
-        </select>
-    </div>
-    <div>
-        <input type="submit">
-    </div>
-</form>
+<section id="container_3">
+    <div id="appointment_index">
+        <h3>Update Appointment</h3>
+        <form action="/appointments/{{ appointment.id }}" method="POST">
+            <div>
+                <label for="name"><b>Date</b></label><br>
+                <input type="date" id="date" name="date"><br><br>
+                <label for="name"><b>Time</b></label><br>
+                <select id="time" name="time" value="{{ appointment.time }}"><br><br>
+                    <option value="8am">8am</option>
+                    <option value="8am">10am</option>
+                    <option value="8am">12pm</option>
+                    <option value="8am">2pm</option>
+                    <option value="8am">4pm</option>
+                    </select><br><br>
+                <label for="dog"><b>Dog</b></label><br>
+                <select name="dog_id" id="dog">
+                    {% for dog in dogs %}
+                    <option value="{{ dog.id }}" {% if dog.id==appointment.dog.id %} selected {% endif %}>
+                        {{ dog.name }}
+                    </option>
+                    {% endfor %}
+                </select><br><br>
+                <label for="groomer"><b>Groomer</b></label><br>
+                <select name="groomer_id" id="groomer_id">
+                    {% for groomer in groomers %}
+                    <option value="{{ groomer.id }}"><br>
+                        {{ groomer.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div>
+                <input id="button" type="submit">
+            </div>
+        </form>
+</section>
 
 {% endblock %}

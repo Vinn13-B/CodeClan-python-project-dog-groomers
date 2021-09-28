@@ -46,7 +46,9 @@ def update_groomer(id):
     contact_number = request.form["contact_number"]
     groomer = Groomer(name, contact_number, id)
     groomer_repository.update(groomer)
-    return redirect("/groomers")
+    appointments = groomer_repository.appointments(id)
+    dogs = dog_repository.select_all()
+    return render_template("/groomers/show.html", groomer=groomer, appointments=appointments, dogs=dogs)
 
 
 # DELETE groomer
@@ -54,14 +56,6 @@ def update_groomer(id):
 def delete_groomer(id):
     groomer_repository.delete(id)
     return redirect("/groomers")
-
-
-# create new groomer
-# new
-@groomers_blueprint.route("/groomers/new")
-def new_groomer():
-    return render_template("/groomers/new.html")
-
 
 # SAVE new groomer
 @groomers_blueprint.route("/groomers", methods=["POST"])

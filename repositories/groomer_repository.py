@@ -74,4 +74,4 @@ def appointments(id):
     for row in results:
         appointment = Appointment(row['date'], row['time'], row['dog_id'], row['groomer_id'], row['id'])
         appointments.append(appointment)
-        return appointments
+    return appointments

@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ appointment.date }}</h2>
-<h2>{{ appointment.time }}</h2>
-<p>Groomer: <a href="/groomers/{{ appointment.groomer.id }}">{{ appointment.groomer.name }}</a></p>
-<p>Dog: <a href="/dogs/{{ appointment.dog.id }}">{{ appointment.dog.name }}</a></p>
-<p>Breed: {{ appointment.dog.breed }}</p>
-<p>Owner: <a href="/owners/{{ appointment.dog.owner.id }}">{{ appointment.dog.owner.name }}</a></p>
+<section id="container_3">
+    <div id="appointment_index">
+        <h3><b>{{ appointment.date }}</b></h3>
+        <p>Time: {{ appointment.time }}</p>
+        <p>Groomer: <a href="/groomers/{{ appointment.groomer.id }}"><b>{{ appointment.groomer.name }}</b></a></p>
+        <p>Dog: <a href="/dogs/{{ appointment.dog.id }}"><b>{{ appointment.dog.name }}</b></a></p>
+        <p>Breed: {{ appointment.dog.breed }}</p>
+        <p>Owner: <a href="/owners/{{ appointment.dog.owner.id }}"><b>{{ appointment.dog.owner.name }}</b></a></p>
+        <form action="/appointments/{{ appointment.id }}/edit" method="POST">
+            <input id="button" type="submit" value="Edit">
+        </form>
+        <form action="/appointments/{{ appointment.id }}/delete" method="POST">
+            <input id="button" type="submit" value="Delete">
+        </form>
+    </div>
+</section>
 
-<form action="/appointments/{{ appointment.id }}/edit" method="POST">
-    <input type="submit" value="Edit">
-</form>
-<form action="/appointments/{{ appointment.id }}/delete" method="POST">
-    <input type="submit" value="Delete">
-</form>
 
 {% endblock %}

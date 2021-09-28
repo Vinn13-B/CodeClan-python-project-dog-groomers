@@ -1,27 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ groomer.name }}</h2>
-<p>Contact Number: {{ groomer.contact_number }}</p>
-
-<form action="/groomers/{{ groomer.id }}/edit" method="POST">
-    <input type="submit" value="Edit">
-</form>    <form action="/groomers/{{ groomer.id }}/delete" method="POST">
-    <input type="submit" value="Delete">
-</form>
-
-<h3>Appointments</h3>
-<ul>{% if appointments != None %}
-        {% for appointment in appointments %}
-            <li><a href="/appointments/{{ appointment.id }}">{{ appointment.date }} @ {{ appointment.time }}</a></li>
-            {% for dog in dogs %}
-                {% if appointment.dog == dog.id %}
-                <p>{{ dog.name }}</p>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-    {% else %}
+<section id="container_2">
+    <div id="groomers_index">
+        <h3>{{ groomer.name }}</h3>
+        <p>Contact Number</p>
+        <p><u>{{ groomer.contact_number }}</u></p>
+        <br>
+        <form action="/groomers/{{ groomer.id }}/edit" method="POST">
+            <input id="button" type="submit" value="Edit">
+        </form>
+        <form action="/groomers/{{ groomer.id }}/delete" method="POST">
+            <input id="button" type="submit" value="Delete">
+        </form>
+    </div>
+    <div id="groomers_index">
+        <h3>Appointments</h3>
+        {% if not appointments %}
         No Appointments Booked
-    {% endif %}
-</ul>
+        {% else %}
+        {% for appointment in appointments %}
+        <a href="/appointments/{{ appointment.id }}"><b>{{ appointment.date }} @ {{ appointment.time }}</b></a>
+        {% for dog in dogs %}
+        {% if appointment.dog == dog.id %}
+        <p>{{ dog.name }}, {{ dog.breed }}</p>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
 {% endblock %}

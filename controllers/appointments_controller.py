@@ -50,7 +50,7 @@ def update_appointment(id):
     groomer = groomer_repository.select(groomer_id)
     appointment = Appointment(date, time, dog, groomer, id)
     appointment_repository.update(appointment)
-    return redirect("/appointments")
+    return render_template("/appointments/show.html", appointment = appointment)
 
 
 # DELETE appointment
