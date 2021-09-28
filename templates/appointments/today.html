@@ -3,16 +3,17 @@
 
 <h2>Todays Appointments</h2>
 
-{% if appointments != None %}
-    {% for appointment in appointments %}
-
-    <section>
-        <h4><a href="/appointments/{{ appointment.id }}">{{ appointment.time }}</a></h4>
-        {{ appointment.dog.name }}
-    </section>
-
-    {% endfor %}
-{% else %}
-    No Appointments Today
-{% endif %}
+<ul>{% if not appointments %}
+        No Appointments Booked
+    {% else %}
+        {% for appointment in appointments %}
+        <li><a href="/appointments/{{ appointment.id }}">{{ appointment.date }} @ {{ appointment.time }}</a></li>
+            {% for dog in dogs %}
+                {% if appointment.dog == dog.id %}
+                <p>{{ dog.name }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</ul>
 {% endblock %}

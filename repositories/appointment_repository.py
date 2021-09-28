@@ -82,9 +82,7 @@ def today():
     results = run_sql(sql, values)
 
     for row in results:
-        dog = dog_repository.select(row['dog_id'])
-        groomer = groomer_repository.select(row['groomer_id'])
-        appointment = Appointment(row['date'], row['time'], dog, groomer, row['id'])
+        appointment = Appointment(row['date'], row['time'], row['dog_id'], row['groomer_id'], row['id'])
         appointments.append(appointment)
     return appointments
 

@@ -11,12 +11,12 @@
 </form>
 
 <h3>Dogs</h3>
-<ul>{% if dogs != None %}
+<ul>{% if not dogs %}
+        No Dogs Registered
+    {% else %}
         {% for dog in dogs %}
             <li><a href="/dogs/{{ dog.id }}">{{ dog.name }} - {{ dog.breed }}</a></li>
         {% endfor %}
-    {% else %}
-        No Dogs Registered
     {% endif %}
 </ul>
 {% endblock %}
