@@ -16,8 +16,7 @@ CREATE TABLE dogs (
     name VARCHAR(255),
     breed VARCHAR(255),
     age INT,
-    owner_id INT REFERENCES owners(id) ON DELETE CASCADE,
-    comments text
+    owner_id INT REFERENCES owners(id) ON DELETE CASCADE
 );
 
 CREATE TABLE groomers (

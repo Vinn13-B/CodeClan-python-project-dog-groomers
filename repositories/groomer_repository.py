@@ -3,7 +3,6 @@
 
 from db.run_sql import run_sql
 
-from models.dog import Dog
 from models.appointment import Appointment
 from models.groomer import Groomer
 

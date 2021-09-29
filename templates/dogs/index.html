@@ -1,17 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Dogs</h2>
-
-{% for dog in dogs %}
-
-<section>
-    <h3><a href="/dogs/{{ dog.id }}">{{ dog.name }}</a></h3>
-    <p>{{ dog.breed }}</p>
-    <p>{{ dog.owner.name }}</p>
+<section id="container_2">
+    <div id="dogs_index">
+        <h2>Dogs</h2>
+        {% for dog in dogs %}
+        <h4><a href="/dogs/{{ dog.id }}">{{ dog.name }}</a> - {{ dog.owner.name }}</h4>
+        {% endfor %}
+    </div>
+    <div id="dogs_index">
+        <h2>New Dog</h2>
+        <form action="/dogs" method="POST">
+            <label for="name"><b>Name</b></label>
+            <input type="text" id="name" name="name">
+            <label for="name"><b>Breed</b></label>
+            <input type="text" id="breed" name="breed"><br>
+            <label for="name"><b>Age</b></label><br>
+            <input type="number" id="age" name="age">
+            <label for="owner"><b>Owner</b></label><br>
+            <select name="owner_id" id="owner_id">
+                {% for owner in owners %}
+                <option value="{{ owner.id }}">
+                    {{ owner.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <p></p>
+            <div>
+                <input id="button" type="submit">
+            </div>
+        </form>
+    </div>
 </section>
 
-<a href="/dogs/new">New Dog</a>
-
-{% endfor %}
 {% endblock %}

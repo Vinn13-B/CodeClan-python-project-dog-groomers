@@ -2,12 +2,9 @@
 
 from flask import Blueprint, Flask, redirect, render_template, request
 
-from models.dog import Dog
-from models.appointment import Appointment
 from models.groomer import Groomer
 
 import repositories.dog_repository as dog_repository
-import repositories.appointment_repository as appointment_repository
 import repositories.groomer_repository as groomer_repository
 
 groomers_blueprint = Blueprint("groomers", __name__)
@@ -56,6 +53,7 @@ def update_groomer(id):
 def delete_groomer(id):
     groomer_repository.delete(id)
     return redirect("/groomers")
+
 
 # SAVE new groomer
 @groomers_blueprint.route("/groomers", methods=["POST"])

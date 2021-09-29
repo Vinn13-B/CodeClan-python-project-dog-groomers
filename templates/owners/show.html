@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ owner.name }}</h2>
-<p>Contact Number: {{ owner.contact_number }}</p>
-
-<form action="/owners/{{ owner.id }}/edit" method="POST">
-    <input type="submit" value="Edit">
-</form>    <form action="/owners/{{ owner.id }}/delete" method="POST">
-    <input type="submit" value="Delete">
-</form>
-
-<h3>Dogs</h3>
-<ul>{% if not dogs %}
+<section id="container_2">
+    <div id="owners_index">
+        <h3>{{ owner.name }}</h3>
+        <p><b>Contact Number</b></p>
+        <p>{{ owner.contact_number }}</p>
+        <br>
+        <form action="/owners/{{ owner.id }}/edit" method="POST">
+            <input id="button" type="submit" value="Edit">
+        </form>
+        <form action="/owners/{{ owner.id }}/delete" method="POST">
+            <input id="button" type="submit" value="Delete">
+        </form>
+    </div>
+    <div id="owners_index">
+        <h3>Dogs</h3>
+        {% if not dogs %}
         No Dogs Registered
-    {% else %}
+        {% else %}
         {% for dog in dogs %}
-            <li><a href="/dogs/{{ dog.id }}">{{ dog.name }} - {{ dog.breed }}</a></li>
+        <a href="/dogs/{{ dog.id }}"><b>{{ dog.name }}</b></a><br>
+        {{ dog.breed }}<br><br>
         {% endfor %}
-    {% endif %}
-</ul>
+        {% endif %}
+    </div>
+</section>
+
 {% endblock %}

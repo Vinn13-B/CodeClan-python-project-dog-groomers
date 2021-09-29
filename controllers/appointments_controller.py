@@ -3,8 +3,6 @@
 from flask import Blueprint, Flask, redirect, render_template, request
 
 from models.appointment import Appointment
-from models.dog import Dog
-from models.groomer import Groomer
 
 import repositories.appointment_repository as appointment_repository
 import repositories.dog_repository as dog_repository
@@ -17,8 +15,9 @@ appointments_blueprint = Blueprint("appointments", __name__)
 # index
 @appointments_blueprint.route("/appointments")
 def apointments():
-    appointments = appointment_repository.select_all()
-    return render_template("appointments/index.html", appointments=appointments)
+    appointments = appointment_repository.today()
+    dogs = dog_repository.select_all()
+    return render_template("/appointments/index.html", appointments=appointments, dogs=dogs)
 
 
 # SELECT appointment by id
@@ -50,7 +49,7 @@ def update_appointment(id):
     groomer = groomer_repository.select(groomer_id)
     appointment = Appointment(date, time, dog, groomer, id)
     appointment_repository.update(appointment)
-    return render_template("/appointments/show.html", appointment = appointment)
+    return render_template("/appointments/show.html", appointment=appointment)
 
 
 # DELETE appointment
@@ -81,14 +80,6 @@ def create_appointment():
     new_appointment = Appointment(date, time, dog, groomer)
     appointment_repository.save(new_appointment)
     return redirect("/appointments")
-
-
-# SELECT appointment by date
-@appointments_blueprint.route("/appointments/today")
-def appointment_date():
-    appointments = appointment_repository.today()
-    dogs = dog_repository.select_all()
-    return render_template("/appointments/today.html", appointments=appointments, dogs=dogs)
 
 
 # SELECT appointment by date range

@@ -4,8 +4,8 @@
 <section id="container_2">
     <div id="groomers_index">
         <h3>{{ groomer.name }}</h3>
-        <p>Contact Number</p>
-        <p><u>{{ groomer.contact_number }}</u></p>
+        <p><b>Contact Number</b></p>
+        <p>{{ groomer.contact_number }}</p>
         <br>
         <form action="/groomers/{{ groomer.id }}/edit" method="POST">
             <input id="button" type="submit" value="Edit">

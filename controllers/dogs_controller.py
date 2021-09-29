@@ -7,6 +7,7 @@ from models.appointment import Appointment
 import repositories.dog_repository as dog_repository
 import repositories.appointment_repository as appointment_repository
 import repositories.owner_repository as owner_repository
+import repositories.groomer_repository as groomer_repository
 
 dogs_blueprint = Blueprint("dogs", __name__)
 
@@ -16,7 +17,8 @@ dogs_blueprint = Blueprint("dogs", __name__)
 @dogs_blueprint.route("/dogs")
 def dogs():
     dogs = dog_repository.select_all()
-    return render_template("dogs/index.html", dogs=dogs)
+    owners = owner_repository.select_all()
+    return render_template("dogs/index.html", dogs=dogs, owners=owners)
 
 
 # SELECT dog by id
@@ -25,7 +27,9 @@ def dogs():
 def show_dog(id):
     dog = dog_repository.select(id)
     appointments = dog_repository.appointments(id)
-    return render_template("dogs/show.html", dog=dog, appointments=appointments)
+    dogs = dog_repository.select_all()
+    groomers = groomer_repository.select_all()
+    return render_template("dogs/show.html", dog=dog, appointments=appointments, dogs=dogs, groomers=groomers)
 
 
 # EDIT dog
@@ -45,10 +49,9 @@ def update_dog(id):
     age = request.form["age"]
     owner_id = request.form["owner_id"]
     owner = owner_repository.select(owner_id)
-    comments = request.form['comments']
-    dog = Dog(name, breed, age, owner, comments, id)
+    dog = Dog(name, breed, age, owner, id)
     dog_repository.update(dog)
-    return redirect("/dogs")
+    return render_template("/dogs/show.html", dog=dog)
 
 
 # DELETE dog
@@ -56,14 +59,6 @@ def update_dog(id):
 def delete_dog(id):
     dog_repository.delete(id)
     return redirect("/dogs")
-
-
-# create new dog
-# new
-@dogs_blueprint.route("/dogs/new")
-def new_dog():
-    owners = owner_repository.select_all()
-    return render_template("/dogs/new.html", owners=owners)
 
 
 # SAVE new dog
@@ -74,7 +69,23 @@ def create_dog():
     age = request.form["age"]
     owner_id = request.form["owner_id"]
     owner = owner_repository.select(owner_id)
-    comments = request.form['comments']
-    new_dog = Dog(name, breed, age, owner, comments, id)
+    new_dog = Dog(name, breed, age, owner, id)
     dog_repository.save(new_dog)
     return redirect("/dogs")
+
+
+# SAVE new appointment from dog show
+@dogs_blueprint.route("/dogs/appointment", methods=["POST"])
+def create_appointment():
+    date = request.form["date"]
+    time = request.form["time"]
+    dog_id = request.form["dog_id"]
+    dog = dog_repository.select(dog_id)
+    groomer_id = request.form["groomer_id"]
+    groomer = groomer_repository.select(groomer_id)
+    new_appointment = Appointment(date, time, dog, groomer)
+    appointment_repository.save(new_appointment)
+    appointments = dog_repository.appointments(dog_id)
+    dogs = dog_repository.select_all()
+    groomers = groomer_repository.select_all()
+    return render_template("/dogs/show.html", dog=dog, appointments=appointments, groomers=groomers, dogs=dogs,)

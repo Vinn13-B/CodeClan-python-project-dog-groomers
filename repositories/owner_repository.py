@@ -4,8 +4,6 @@
 from db.run_sql import run_sql
 
 from models.dog import Dog
-from models.appointment import Appointment
-from models.groomer import Groomer
 from models.owner import Owner
 
 # SAVE owner entry
@@ -72,6 +70,6 @@ def dogs(id):
     results = run_sql(sql, values)
 
     for row in results:
-        dog = Dog(row['name'], row['breed'], row['age'], row['owner_id'], row['comments'], row['id'])
+        dog = Dog(row['name'], row['breed'], row['age'], row['owner_id'], row['id'])
         dogs.append(dog)
     return dogs

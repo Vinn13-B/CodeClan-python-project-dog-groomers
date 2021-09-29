@@ -2,10 +2,9 @@
 
 class Dog:
     
-    def __init__(self, name, breed, age, owner, comments, id = None):
+    def __init__(self, name, breed, age, owner, id = None):
         self.name = name
         self.breed = breed
         self.age = age
         self.owner = owner
-        self.comments = comments
         self.id = id

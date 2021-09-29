@@ -12,8 +12,8 @@ import repositories.owner_repository as owner_repository
 
 # SAVE dog entry
 def save(dog):
-    sql = "INSERT INTO dogs (name, breed, age, owner_id, comments) VALUES (%s, %s, %s, %s, %s) RETURNING *"
-    values = [dog.name, dog.breed, dog.age, dog.owner.id, dog.comments]
+    sql = "INSERT INTO dogs (name, breed, age, owner_id) VALUES (%s, %s, %s, %s) RETURNING *"
+    values = [dog.name, dog.breed, dog.age, dog.owner.id]
     results = run_sql(sql, values)
     id = results[0]['id']
     dog.id = id
@@ -42,7 +42,7 @@ def select_all():
 
     for row in results:
         owner = owner_repository.select(row['owner_id'])
-        dog = Dog(row['name'], row['breed'], row['age'], owner, row['comments'], row['id'])
+        dog = Dog(row['name'], row['breed'], row['age'], owner, row['id'])
         dogs.append(dog)
     return dogs
 
@@ -56,14 +56,14 @@ def select(id):
 
     if result is not None:
         owner = owner_repository.select(result['owner_id'])
-        dog = Dog(result['name'], result['breed'], result['age'], owner, result['comments'], result['id'])
+        dog = Dog(result['name'], result['breed'], result['age'], owner, result['id'])
     return dog
 
 
 # UPDATE dog
 def update(dog):
-    sql = "UPDATE dogs SET (name, breed, age, owner_id, comments) = (%s, %s, %s, %s) WHERE id = %s"
-    values = [dog.name, dog.breed, dog.age, dog.owner.id, dog.comments, dog.id]
+    sql = "UPDATE dogs SET (name, breed, age, owner_id) = (%s, %s, %s, %s) WHERE id = %s"
+    values = [dog.name, dog.breed, dog.age, dog.owner.id, dog.id]
     run_sql(sql, values)
 
 
@@ -78,4 +78,4 @@ def appointments(id):
     for row in results:
         appointment = Appointment(row['date'], row['time'], row['dog_id'], row['groomer_id'], row['id'])
         appointments.append(appointment)
-        return appointments
+    return appointments

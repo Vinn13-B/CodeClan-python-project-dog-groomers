@@ -35,9 +35,9 @@ owner_repository.save(owner2)
 owner_repository.save(owner3)
 
 # SAVE entries to dogs
-dog1 = Dog("Biscuits", "Norfolk Terrier", 8, owner1, "Best girl")
-dog2 = Dog("Elvis", "Labrador", 9, owner2, "Best boy")
-dog3 = Dog("Boo", "Cocker Spaniel", 10, owner3, "Hyper AF")
+dog1 = Dog("Biscuits", "Norfolk Terrier", 8, owner1)
+dog2 = Dog("Elvis", "Labrador", 9, owner2)
+dog3 = Dog("Boo", "Cocker Spaniel", 10, owner3)
 dog_repository.save(dog1)
 dog_repository.save(dog2)
 dog_repository.save(dog3)
@@ -119,5 +119,19 @@ dog_appointments = dog_repository.appointments(dog1.id)
 # SELECT appointments by groomer
 groomer_appointments = groomer_repository.appointments(groomer1.id)
 
+
+# deleting and repopulating db for presentation
+owner_repository.delete_all()
+dog_repository.delete_all()
+groomer_repository.delete_all()
+appointment_repository.delete_all()
+owner1 = Owner("Ailie Brown", "07933333333")
+owner_repository.save(owner1)
+dog1 = Dog("Biscuits", "Norfolk Terrier", 8, owner1)
+dog_repository.save(dog1)
+groomer1 = Groomer("Ailie", "07933333333")
+groomer_repository.save(groomer1)
+appointment1 = Appointment("30/09/2021", "8am", dog1, groomer1)
+appointment_repository.save(appointment1)
 
 pdb.set_trace()

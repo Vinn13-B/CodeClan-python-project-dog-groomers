@@ -1,31 +1,35 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
 
-<h2>Appointments</h2>
-
-<li><a href="/appointments/today">Today's Appointments</a></li>
-
-<form action="/appointments/dates" method="POST">
-    <div>
-        Filter Specific Dates:
-        <label for="name">Date From:</label>
-        <input type="text" id="date_from" name="date_from">
-        <label for="name">Date To:</label>
-        <input type="text" id="date_to" name="date_to">
+<section id="container_2">
+    <div id="groomers_index">
+        <h3>Todays Appointments</h3>
+        {% if not appointments %}
+        No Appointments Booked
+        {% else %}
+        {% for appointment in appointments %}
+        <a href="/appointments/{{ appointment.id }}"><b>{{ appointment.date }} @ {{ appointment.time }}</b></a>
+        {% for dog in dogs %}
+        {% if appointment.dog==dog.id %}
+        {{ dog.name }}, {{ dog.breed }}
+        {% endif %}
+        <br><br>
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
     </div>
-    <div>
-        <input type="submit">
+    <div id="groomers_index">
+        <form action="/appointments/dates" method="POST">
+            <h3>Search By Date</h3>
+            <label for="name"><b>Date From</b></label>
+            <br><input type="date" id="date_from" name="date_from">
+            <br><br><label for="name"><b>Date To</b></label>
+            <br><input type="date" id="date_to" name="date_to">
+            <br><br>
+            <div>
+                <input id="button" type="submit">
+            </div>
+        </form>
     </div>
-</form>
 
-
-{% for appointment in appointments %}
-
-<section>
-    <h3>{{ appointment.date }}</h3>
-    <h4><a href="/appointments/{{ appointment.id }}">{{ appointment.time }}</a></h4>
-    <p>{{ appointment.dog.name }}</p>
-</section>
-
-{% endfor %}
-{% endblock %}
+    {% endblock %}

@@ -21,7 +21,4 @@ class TestDog(unittest.TestCase):
 
     def test_dog_has_owner(self):
         self.assertEqual("Ailie", self.dog.owner)
-
-    def test_dog_has_comments(self):
-        self.assertEqual("None", self.dog.comments)
     

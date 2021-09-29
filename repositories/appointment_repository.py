@@ -4,8 +4,6 @@
 from db.run_sql import run_sql
 import datetime
 
-from models.dog import Dog
-from models.groomer import Groomer
 from models.appointment import Appointment
 
 import repositories.dog_repository as dog_repository
@@ -75,7 +73,7 @@ def update(appointment):
 def today():
     appointments = []
     today = datetime.datetime.now()
-    now = today.strftime("%d/%m/%Y")
+    now = today.strftime("%Y-%m-%d")
 
     sql = "SELECT * FROM appointments WHERE date = %s"
     values = [now]

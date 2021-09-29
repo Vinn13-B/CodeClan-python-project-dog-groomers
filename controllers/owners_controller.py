@@ -2,14 +2,8 @@
 
 from flask import Blueprint, Flask, redirect, render_template, request
 
-from models.dog import Dog
-from models.appointment import Appointment
-from models.groomer import Groomer
 from models.owner import Owner
 
-import repositories.dog_repository as dog_repository
-import repositories.appointment_repository as appointment_repository
-import repositories.groomer_repository as groomer_repository
 import repositories.owner_repository as owner_repository
 
 owners_blueprint = Blueprint("owners", __name__)
@@ -47,7 +41,7 @@ def update_owner(id):
     contact_number = request.form["contact_number"]
     owner = Owner(name, contact_number, id)
     owner_repository.update(owner)
-    return redirect("/owners")
+    return render_template("/owners/show.html", owner=owner)
 
 
 # DELETE owner
@@ -55,13 +49,6 @@ def update_owner(id):
 def delete_owner(id):
     owner_repository.delete(id)
     return redirect("/owners")
-
-
-# create new owner
-# new
-@owners_blueprint.route("/owners/new")
-def new_owner():
-    return render_template("/owners/new.html")
 
 
 # SAVE new owner

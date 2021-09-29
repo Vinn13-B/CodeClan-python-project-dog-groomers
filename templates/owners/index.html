@@ -1,13 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Owners</h2>
-
-{% for owner in owners %}
-
-<section>
-    <h3><a href="/owners/{{ owner.id }}">{{ owner.name }}</a></h3>
+<section id="container_2">
+    <div id="owners_index">
+        <h3>Owners</h3>
+        {% for owner in owners %}
+        <h2><a href="/owners/{{ owner.id }}">{{ owner.name }}</a></h2>
+        {% endfor %}
+    </div>
+    <div id="owners_index">
+        <h3>New Owner</h3>
+        <form action="/owners" method="POST">
+            <div>
+                <label for="name"><b>Name</b></label>
+                <input type="text" id="name" name="name">
+                <p></p>
+                <label for="name"><b>Contact Number</b></label>
+                <input type="text" id="contact_number" name="contact_number">
+            </div>
+            <p></p>
+            <div>
+                <input id="button" type="submit">
+            </div>
+        </form>
+    </div>
 </section>
 
-{% endfor %}
 {% endblock %}

@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Update a Dog</h2>
-
-<form action="/dogs/{{ dog.id }}" method="POST">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ dog.name }}">
-        <label for="name">Breed:</label>
-        <input type="text" id="breed" name="breed" value="{{ dog.breed }}">
-        <label for="name">Age:</label>
-        <input type="number" id="age" name="age" value="{{ dog.age }}">
-        <label for="owner">Owner:</label>
-        <select name="owner_id" id="owner_id">
-            {% for owner in owners %}
-            <option value="{{ owner.id }}">
-                {{ owner.name }}
-            </option>
-            {% endfor %}
-        </select>
-        <label for="comments">Comments:</label>
-        <textarea name="comments" cols="30" rows="10"></textarea>
+<section id="container_2">
+    <div id="dogs_index">
+        <h3>Update Dog</h3>
+        <form action="/dogs/{{ dog.id }}" method="POST">
+            <label for="name"><b>Name</b></label>
+            <input type="text" id="name" name="name" value="{{ dog.name }}">
+            <label for="name"><b>Breed</b></label>
+            <input type="text" id="breed" name="breed" value="{{ dog.breed }}"><br>
+            <label for="name"><b>Age</b></label><br>
+            <input type="number" id="age" name="age" value="{{ dog.age }}">
+            <label for="owner"><b>Owner</b></label><br>
+            <select name="owner_id" id="owner_id" value="{{ dog.owner.name }}">
+                {% for owner in owners %}
+                <option value="{{ owner.id }}">
+                    {{ owner.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <p></p>
+            <div>
+                <input id="button" type="submit">
+            </div>
+        </form>
     </div>
-    <div>
-        <input type="submit">
-    </div>
-</form>
+</section>
 
 {% endblock %}

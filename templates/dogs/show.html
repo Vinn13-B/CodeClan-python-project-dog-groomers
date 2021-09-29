@@ -1,28 +1,72 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ dog.name }}</h2>
-<p>Breed: {{ dog.breed }}</p>
-<p>Age: {{ dog.age }}</p>
-<p>Owner Name: {{ dog.owner.name }}</p>
-<p>Contact Number: {{ dog.owner.contact_number }}</p>
-<p>Comments: {{ dog.comments }}</p>
-
-<form action="/dogs/{{ dog.id }}/edit" method="POST">
-    <input type="submit" value="Edit">
-</form>
-<form action="/dogs/{{ dog.id }}/delete" method="POST">
-    <input type="submit" value="Delete">
-</form>
-<li><a href="/appointments/new">Book Appointment</a></li>
-
-<h3>Appointments</h3>
-<ul>{% if appointments != None %}
-        {% for appointment in appointments %}
-            <li><a href="/appointments/{{ appointment.id }}">{{ appointment.date }} @ {{ appointment.time }}</a></li>
-        {% endfor %}
-    {% else %}
+<section id="container_3">
+    <div id="dogs_show">
+        <h3>{{ dog.name }}</h3>
+        <b>Breed</b><br>
+        {{ dog.breed }}<br>
+        <br><b>Age</b><br>
+        {{ dog.age }}<br>
+        <br><b>Owner Name</b><br>
+        <a href="/owners/{{ dog.owner.id }}"> <b>{{ dog.owner.name }}</b></a><br>
+        <br><b>Contact Number</b>
+        {{ dog.owner.contact_number }}<br><br>
+        <form action="/dogs/{{ dog.id }}/edit" method="POST">
+            <input id="button" type="submit" value="Edit">
+        </form>
+        <form action="/dogs/{{ dog.id }}/delete" method="POST">
+            <input id="button" type="submit" value="Delete">
+        </form>
+    </div>
+    <div id="dogs_show">
+        <h3>Exisiting Appointments</h3>
+        {% if not appointments %}
         No Appointments Booked
-    {% endif %}
-</ul>
+        {% else %}
+        {% for appointment in appointments %}
+        <a href="/appointments/{{ appointment.id }}"><b>{{ appointment.date }} @ {{ appointment.time }}</b></a>
+        <br><br>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div id="dogs_show">
+        <h3>New Appointment</h3>
+        <form action="/dogs/appointment" method="POST">
+            <label for="name"><b>Date</b></label><br>
+            <input type="date" id="date" name="date"><br>
+            <br><label for="name"><b>Time</b></label><br>
+            <select id="time" name="time"><br><br>
+                <option value="8am">8am</option>
+                <option value="8am">10am</option>
+                <option value="8am">12pm</option>
+                <option value="8am">2pm</option>
+                <option value="8am">4pm</option>
+            </select><br>
+            <br><label for="dog"><b>Dog</b></label><br>
+            <select name="dog_id" id="dog_id">
+                {% for dog in dogs %}
+                <option value="{{ dog.id }}">
+                    {{ dog.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <br><br><label for="groomer"><b>Groomer</b></label></br>
+            <select name="groomer_id" id="groomer_id">
+                {% for groomer in groomers %}
+                <p>
+                    <option value="{{ groomer.id }}">
+                </p>
+                {{ groomer.name }}<br>
+                </option>
+                {% endfor %}
+            </select>
+            <p></p>
+            <div>
+                <input id="button" type="submit">
+            </div>
+        </form>
+    </div>
+</section>
+
 {% endblock %}
